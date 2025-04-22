@@ -1,8 +1,11 @@
 'use client'
 import { useFetchHook } from "@/hooks/useFetchHook"
-
+import { SmallImage, MediumImage } from "./GameImage";
+import { useCategoryContext } from "@/context/categoryContext";
 export const ShowResult = () => {
-	const { data, defaultMessage, error, loading } = useFetchHook();
+	const { category } = useCategoryContext();
+	const { data, defaultMessage, error, loading } = useFetchHook(category);
+
 	console.log(data)
 	if (loading) {
 
@@ -41,10 +44,23 @@ export const ShowResult = () => {
 	}
 	return (
 		<>
-			<ul>
-				{data && data.map((game) => {
-					return <li key={game.id}> {game.name} </li>
-				})}
+			<ul className="m-1 min-w-[300px]">
+				{data?.map(game => (
+					<li key={game.id} className="flex items-center space-y-4 space-x-4 ">
+						{game.cover?.image_id ? (
+							<>
+
+								<SmallImage id={game.cover.image_id} />
+								<MediumImage id={game.cover.image_id} />
+							</>
+						) : (
+							<div className="flex items-center justify-center min-w-[90px] min-h-[128px] md:min-w-[264px] md:min-h-[374px] border border-blue-400" >
+								<p className="text-sm md:text-lg italic text-gray-500 text-center">404</p>
+							</div>
+						)}
+						<span>{game.name}</span>
+					</li>
+				))}
 			</ul>
 			{!data && defaultMessage}
 		</>

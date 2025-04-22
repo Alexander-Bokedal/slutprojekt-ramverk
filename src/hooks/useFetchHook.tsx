@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 interface IgdbGame {
 	id: number,
+	cover: {
+		id: number,
+		image_id: string,
+	}
 	name: string
 }
 
@@ -15,19 +19,24 @@ interface UseIgdbSearchResult {
 	defaultMessage: string;
 }
 
-export function useFetchHook(): UseIgdbSearchResult {
+export function useFetchHook(category: string): UseIgdbSearchResult {
 	const searchParams = useSearchParams();
 	const query = searchParams.get('query') || ''
 	const [data, setData] = useState<IgdbData | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<Error | null>(null);
 	const defaultMessage = 'No query registered'
 
 	useEffect(() => {
+		if (!query) {
+			setData(null)
+			return
+		}
 		const fetchData = async () => {
+
 			try {
 				setLoading(true)
-				const res = await fetch(`/api/igdbSearch?query=${encodeURIComponent(query)}`, {
+				const res = await fetch(`/api/igdb${category}?query=${encodeURIComponent(query)}`, {
 					method: 'GET',
 				});
 				if (!res.ok) {
@@ -42,12 +51,8 @@ export function useFetchHook(): UseIgdbSearchResult {
 			}
 		};
 
-		if (query) {
-			fetchData();
-		} else {
-			setData(null)
-		}
-	}, [query]);
+		fetchData()
+	}, [query, category]);
 
 	return { data, loading, error, defaultMessage };
 }

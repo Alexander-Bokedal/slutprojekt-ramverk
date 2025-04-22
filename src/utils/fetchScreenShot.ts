@@ -1,8 +1,8 @@
-export async function fetchIGDBData(query: string) {
+export async function fetchScreenShot(id: number) {
   const clientID = process.env.IGDB_CLIENT_ID!;
   const accessToken = process.env.IGDB_ACCESS_TOKEN!;
 
-  const res = await fetch("https://api.igdb.com/v4/search", {
+  const res = await fetch("https://api.igdb.com/v4/games", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -10,7 +10,8 @@ export async function fetchIGDBData(query: string) {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "text/plain",
     },
-    body: `fields name; search "${query}"; limit 10;`,
+    body: `fields screenshots.*;
+where id = ${id}`,
   });
 
   if (!res.ok) {
@@ -18,5 +19,6 @@ export async function fetchIGDBData(query: string) {
     return [];
   }
 
+  console.log("This is returned");
   return res.json();
 }

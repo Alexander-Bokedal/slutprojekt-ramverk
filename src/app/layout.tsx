@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import { CategoryContextProvider } from "@/context/categoryContext";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,7 +27,9 @@ export default function RootLayout({
       <body
         className={`flex items-center justify-center ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <CategoryContextProvider>
+          {children}
+        </CategoryContextProvider>
       </body>
     </html>
   );

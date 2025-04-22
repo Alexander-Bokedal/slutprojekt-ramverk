@@ -13,7 +13,7 @@ export async function GET(request: NextRequest): Promise<Response> {
   const query = searchParams.get("query") || "";
   console.log("Query", query);
   try {
-    const igdbResponse = await fetch("https://api.igdb.com/v4/search", {
+    const igdbResponse = await fetch("https://api.igdb.com/v4/characters", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest): Promise<Response> {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "text/plain",
       },
-      body: `search "${query}"; fields name; limit 10;`,
+      body: `search "${query}"; fields name, description;`,
     });
 
     console.log("Query", query);
