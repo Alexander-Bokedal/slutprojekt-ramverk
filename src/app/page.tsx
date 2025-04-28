@@ -1,5 +1,6 @@
 import SearchBar from "@/components/SearchBar";
-import { ShowResult } from "@/components/ShowResult";
+import ShowGameResult from "@/components/ShowGameResult";
+import ShowCharactersResult from "@/components/ShowCharactersResult";
 import CategoryPicker from "@/components/CategoryPicker";
 export default async function Home() {
 
@@ -8,7 +9,8 @@ export default async function Home() {
     <div className="relative w-4/6 mx-auto mt-8">
       <CategoryPicker />
       <SearchBar />
-      <ShowResult />
+      <ShowGameResult />
+      <ShowCharactersResult />
     </div>
   );
 }

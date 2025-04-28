@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CategoryContextProvider } from "@/context/categoryContext";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,10 +27,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`flex items-center justify-center ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`flex flex-col min-h-screen bg-gray-500 antialiased`}
       >
         <CategoryContextProvider>
-          {children}
+          <Header />
+
+          <main className="flex-grow pt-16">
+            {children}
+          </main>
+
+          <Footer />
         </CategoryContextProvider>
       </body>
     </html>

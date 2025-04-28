@@ -1,6 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
 
-export async function GET(request: NextRequest): Promise<Response> {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } },
+): Promise<Response> {
   const clientID: string | undefined = process.env.IGDB_CLIENT_ID;
   const accessToken: string | undefined = process.env.IGDB_ACCESS_TOKEN;
   if (!clientID || !accessToken) {
@@ -9,9 +12,7 @@ export async function GET(request: NextRequest): Promise<Response> {
       { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
-  const { searchParams } = new URL(request.url);
-  const query = searchParams.get("query") || "";
-  console.log("Query", query);
+  const { id } = params;
   try {
     const igdbResponse = await fetch("https://api.igdb.com/v4/characters", {
       method: "POST",
@@ -21,10 +22,9 @@ export async function GET(request: NextRequest): Promise<Response> {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "text/plain",
       },
-      body: `search "${query}"; fields name, description, mug_shot.url;`,
+      body: `fields *; where id = ${id};`,
     });
 
-    console.log("Query", query);
     const data = await igdbResponse.json();
 
     return new NextResponse(JSON.stringify(data), {

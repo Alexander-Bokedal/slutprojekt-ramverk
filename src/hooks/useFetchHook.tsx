@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-interface IgdbGame {
+import { useSearchParams, useParams } from 'next/navigation';
+export type IgdbGame = {
 	id: number,
 	cover: {
 		id: number,
@@ -10,7 +10,19 @@ interface IgdbGame {
 	name: string
 }
 
-type IgdbData = IgdbGame[];
+export type IgdbCharacter = {
+	id: number,
+	mug_shot: {
+		id: number,
+		url: string,
+	}
+	name: string,
+	description: string,
+}
+
+
+
+type IgdbData = IgdbGame[] | IgdbCharacter[];
 
 interface UseIgdbSearchResult {
 	data: IgdbData | null;
@@ -57,3 +69,36 @@ export function useFetchHook(category: string): UseIgdbSearchResult {
 	return { data, loading, error, defaultMessage };
 }
 
+
+export function useFetchSingleCharacter(category: string): any {
+	const { id } = useParams();
+	const [data, setData] = useState<any>(null);
+	const [loading, setLoading] = useState<boolean>(false);
+	const [error, setError] = useState<Error | null>(null);
+	const defaultMessage = 'No query registered'
+
+	useEffect(() => {
+		const fetchData = async () => {
+
+			try {
+				setLoading(true)
+				const res = await fetch(`/api/igdbSingle${category}/${id}`, {
+					method: 'GET',
+				});
+				if (!res.ok) {
+					throw new Error(`Error: ${res.statusText}`);
+				}
+				const result: IgdbData = await res.json();
+				setData(result);
+			} catch (err: any) {
+				setError(err);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchData()
+	}, [id]);
+
+	return { data, loading, error, defaultMessage };
+}
