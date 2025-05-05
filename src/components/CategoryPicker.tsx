@@ -10,7 +10,7 @@ const CategoryPicker = () => {
 	};
 
 	return (
-		<div className="w-full max-w-xs mb-2 mt-2 ">
+		<div className="w-full  mb-2 mt-2 ">
 			<label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
 				Choose a Category
 			</label>

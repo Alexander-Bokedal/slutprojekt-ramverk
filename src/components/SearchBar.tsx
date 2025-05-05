@@ -21,7 +21,7 @@ export default function SearchBar({ }) {
 	}
 
 	return (
-		<div className="relative">
+		<div className="relative w-full flex justify-center">
 			<input
 				type="text"
 				value={value}

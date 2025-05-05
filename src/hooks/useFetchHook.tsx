@@ -2,20 +2,35 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
 export type IgdbGame = {
-	id: number,
+	id: string,
 	cover: {
-		id: number,
+		id: string,
 		image_id: string,
+
 	}
+	screenshots: [
+		{
+			image_id: string
+		}
+	];
 	name: string
 }
 
 export type IgdbCharacter = {
-	id: number,
+	id: string,
 	mug_shot: {
 		id: number,
 		url: string,
 	}
+	games: [
+		{
+			id: string,
+			cover: {
+				id: string,
+				url: string
+			}
+		}
+	]
 	name: string,
 	description: string,
 }

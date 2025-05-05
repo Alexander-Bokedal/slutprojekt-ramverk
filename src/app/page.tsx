@@ -6,7 +6,7 @@ export default async function Home() {
 
   return (
 
-    <div className="relative w-4/6 mx-auto mt-8">
+    <div className="relative flex flex-col items-center max-w-5xl mx-auto mt-8 p-10">
       <CategoryPicker />
       <SearchBar />
       <ShowGameResult />
