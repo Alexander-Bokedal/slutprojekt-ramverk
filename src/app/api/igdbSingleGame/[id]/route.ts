@@ -22,7 +22,7 @@ export async function GET(
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "text/plain",
       },
-      body: `fields *; where id = ${id};`,
+      body: `fields id, cover.image_id, storyline, summary, screenshots.image_id, screenshots.url, name; where id = ${id};`,
     });
 
     const data = await igdbResponse.json();

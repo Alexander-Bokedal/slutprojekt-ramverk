@@ -8,6 +8,8 @@ export type IgdbGame = {
 		image_id: string,
 
 	}
+	storyline: string,
+	summary: string,
 	screenshots: [
 		{
 			image_id: string
