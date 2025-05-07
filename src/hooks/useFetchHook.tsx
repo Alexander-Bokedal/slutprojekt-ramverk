@@ -1,41 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
-export type IgdbGame = {
-	id: string,
-	cover: {
-		id: string,
-		image_id: string,
+import { IgdbGame, IgdbCharacter } from '@/types/types';
 
-	}
-	storyline: string,
-	summary: string,
-	screenshots: [
-		{
-			image_id: string
-		}
-	];
-	name: string
-}
-
-export type IgdbCharacter = {
-	id: string,
-	mug_shot: {
-		id: number,
-		url: string,
-	}
-	games: [
-		{
-			id: string,
-			cover: {
-				id: string,
-				url: string
-			}
-		}
-	]
-	name: string,
-	description: string,
-}
 
 
 

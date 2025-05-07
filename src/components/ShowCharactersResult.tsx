@@ -1,7 +1,8 @@
 'use client'
 import Link from "next/link";
-import { IgdbCharacter, useFetchHook } from "@/hooks/useFetchHook"
-import { SmallCharacterImage, } from "./GameImage";
+import { useFetchHook } from "@/hooks/useFetchHook"
+import { IgdbCharacter } from "@/types/types";
+import { SmallCharacterImage, SmallImage } from "./GameImage";
 import { useCategoryContext } from "@/context/categoryContext";
 import { useEffect } from "react";
 import { useCharacterContext } from "@/context/favoriteCharactersContext";
@@ -37,20 +38,21 @@ const ShowCharactersResult = () => {
 		return <p> No characters found </p>
 	}
 	const characters = data as IgdbCharacter[];
+	console.log(characters)
 	return (
 		<>
 			<ul className="m-1 min-w-[300px] w-full">
 				{characters?.map((character) => {
-					const isFavorited = state.characters.some((c: IgdbCharacter) => c.id === character.id);
+					const isFavorited = state.some((c: IgdbCharacter) => c.id === character.id);
 
 					return (
 						<li key={character.id} className="flex items-center space-y-4 space-x-4">
 
 							<Card>
-								{character.mug_shot?.url ? (
-									<SmallCharacterImage url={character.mug_shot.url} />
-								) : character.games?.[0]?.cover?.url ? (
-									<SmallCharacterImage url={character.games[0].cover.url} />
+								{character.mug_shot?.image_id ? (
+									<SmallImage id={character.mug_shot.image_id} />
+								) : character.games?.[0]?.cover?.image_id ? (
+									<SmallImage id={character.games[0].cover.image_id} />
 								) : (
 									<div className="flex items-center justify-center min-w-[120px] min-h-[120px] border border-blue-400">
 										<Image

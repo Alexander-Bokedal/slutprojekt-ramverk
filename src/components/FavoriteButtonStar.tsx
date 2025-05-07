@@ -1,12 +1,13 @@
 
 import React from 'react';
 import { FaStar, FaRegStar } from 'react-icons/fa';
+import { IgdbCharacter, IgdbGame } from '@/types/types';
 
 type FavoriteButtonProps = {
 	isFavorited: boolean;
-	onAdd: (game: any) => void;
-	onRemove: (game: any) => void;
-	object: any
+	onAdd: (object: IgdbGame | IgdbCharacter) => void;
+	onRemove: () => void;
+	object: IgdbCharacter | IgdbGame
 };
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({
@@ -17,7 +18,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
 }) => {
 	const handleClick = () => {
 		if (isFavorited) {
-			onRemove(object);
+			onRemove();
 		} else {
 			onAdd(object);
 		}

@@ -21,7 +21,7 @@ export async function GET(request: NextRequest): Promise<Response> {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "text/plain",
       },
-      body: `search "${query}"; fields name,  games.cover.url, description,mug_shot.url;`,
+      body: `search "${query}"; fields name,  games.cover.image_id, description,mug_shot.image_id;`,
     });
 
     console.log("Query", query);

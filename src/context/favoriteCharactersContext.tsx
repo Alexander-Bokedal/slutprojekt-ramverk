@@ -1,5 +1,5 @@
 'use client'
-import { IgdbCharacter } from '@/hooks/useFetchHook';
+import { IgdbCharacter } from '@/types/types';
 import React, {
 	createContext,
 	useContext,
@@ -9,35 +9,30 @@ import React, {
 } from 'react';
 
 
-type CharacterState = {
-	characters: IgdbCharacter[]
-}
+type CharacterState = IgdbCharacter[];
 
 type CharacterAction =
 	| { type: 'ADD_CHARACTER'; payload: IgdbCharacter }
 	| { type: 'REMOVE_CHARACTER'; payload: { id: string } }
 	| { type: 'UPDATE_CHARACTER'; payload: IgdbCharacter };
 
-const initialState: CharacterState = {
-	characters: [],
-};
+const initialState: IgdbCharacter[] = [];
 
-function characterReducer(state: CharacterState, action: CharacterAction): CharacterState {
+function characterReducer(
+	state: CharacterState,
+	action: CharacterAction
+): CharacterState {
 	switch (action.type) {
 		case 'ADD_CHARACTER':
-			return { characters: [...state.characters, action.payload] };
+			return [...state, action.payload];
 		case 'REMOVE_CHARACTER':
-			return {
-				characters: state.characters.filter((char) => char.id !== action.payload.id),
-			};
+			return state.filter((char) => char.id !== action.payload.id);
 		case 'UPDATE_CHARACTER':
-			return {
-				characters: state.characters.map((char) =>
-					char.id === action.payload.id ? action.payload : char
-				),
-			};
+			return state.map((char) =>
+				char.id === action.payload.id ? action.payload : char
+			);
 		default:
-			throw new Error(`Unhandled action type: `);
+			throw new Error(`Unhandled action type`);
 	}
 }
 

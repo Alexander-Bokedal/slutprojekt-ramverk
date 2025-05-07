@@ -1,25 +1,42 @@
 'use client'
-import { useFetchHook, IgdbGame } from "@/hooks/useFetchHook"
+import { useFetchHook } from "@/hooks/useFetchHook"
 import { SmallImage, MediumImage } from "./GameImage";
-import { useCategoryContext } from "@/context/categoryContext";
-import { useEffect } from 'react'
+
+import { useState, useEffect } from 'react'
+import { IgdbGame } from "@/types/types";
+import ConfirmModal from "./ConfirmModal";
 import Link from "next/link";
 import Spinner from "./Spinner";
 import FavoriteButton from "./FavoriteButtonStar";
 import Card from "./Card";
 import { useGameContext } from "@/context/favoriteGamesContext";
+import { useCategoryContext } from "@/context/categoryContext";
 import Image from "next/image";
 const ShowGameResult = () => {
 	const { dispatch, state } = useGameContext();
+	const [showConfirm, setShowConfirm] = useState(false);
+	const [pendingGame, setPendingGame] = useState<IgdbGame | null>(null);
 	const { category } = useCategoryContext();
 	const { data, defaultMessage, error, loading } = useFetchHook(category);
 
-	const handleAdd = (game: any) => {
+	const onRemoveClick = (game: IgdbGame) => {
+		setShowConfirm(true);
+		setPendingGame(game)
+	};
+
+	const closeModal = () => {
+		setShowConfirm(false);
+		setPendingGame(null)
+	};
+	const handleAdd = (game: IgdbGame) => {
 		dispatch({ type: 'ADD_GAME', payload: game });
 	};
 
-	const handleRemove = (game: any) => {
-		dispatch({ type: 'REMOVE_GAME', payload: { id: game.id } });
+	const handleConfirmRemove = () => {
+		if (pendingGame) {
+			dispatch({ type: 'REMOVE_GAME', payload: { id: pendingGame.id } });
+		}
+		closeModal();
 	};
 	useEffect(() => {
 		console.log(state)
@@ -40,12 +57,12 @@ const ShowGameResult = () => {
 	const games = data as IgdbGame[];
 	return (
 		<>
-			<ul className="m-1 min-w-[300px] w-full">
+			<ul className="m-1 min-w-[300px] flex flex-wrap justify-between w-full">
 				{games?.map((game) => {
-					const isFavorited = state.games.some((g) => g.id === game.id);
+					const isFavorited = state.some((g) => g.id === game.id);
 
 					return (
-						<li key={game.id} className="flex items-center space-y-4 space-x-4">
+						<li key={game.id} className="flex flex-col items-center  ">
 							<Card>
 
 								<Link href={`/games/${game.id}`}>
@@ -75,17 +92,26 @@ const ShowGameResult = () => {
 
 								</Link>
 
-								<Link href={`/games/${game.id}`}>
-									<span>{game.name}</span>
-								</Link>
 
-								<FavoriteButton
-									onAdd={() => handleAdd(game)}
-									onRemove={() => handleRemove(game)}
-									isFavorited={isFavorited}
+								<ConfirmModal
+									isOpen={showConfirm}
+									message={`Are you sure you want to remove this?`}
+									onConfirmAction={handleConfirmRemove}
+									onCancelAction={closeModal}
 									object={game}
 								/>
 							</Card>
+
+							<div className="flex w-full  items-center justify-center h-15 justify-self-center" >
+								<span className="text-center  font-bold max-w-[200px]">{game.name}</span>
+
+								<FavoriteButton
+									onAdd={() => handleAdd(game)}
+									onRemove={() => onRemoveClick(game)}
+									isFavorited={isFavorited}
+									object={game}
+								/>
+							</div>
 						</li>
 					);
 				})}

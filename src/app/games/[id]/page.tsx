@@ -1,20 +1,10 @@
 'use client'
 import { useFetchSingleCharacter } from "@/hooks/useFetchHook"
 import { AlwaysShowMediumImage, AlwaysShowScreenShot } from "@/components/GameImage";
+import { IgdbGame } from "@/types/types";
 import React from 'react';
 import Spinner from "@/components/Spinner";
 
-export type IgdbGame = {
-	id: string;
-	cover: {
-		id: string;
-		image_id: string;
-	};
-	storyline: string;
-	summary: string;
-	screenshots: { id: string, image_id: string, url: string }[];
-	name: string;
-};
 
 interface GameDetailsProps {
 	game: IgdbGame;
