@@ -71,13 +71,15 @@ export default function Header() {
 								</Link>
 							</li>
 							<li>
-								<Link href="/savedgames">
-									<div className="block hover:text-blue-600">Saved Games</div>
+								<Link href="/games/savedgames">
+									<div className="hover:text-blue-600 text-black">Saved Games</div>
 								</Link>
 							</li>
+
+							<li> | </li>
 							<li>
-								<Link href="/savedcharacters">
-									<div className="block hover:text-blue-600">Saved Characters</div>
+								<Link href="/characters/savedcharacters">
+									<div className="hover:text-blue-600 text-black">Saved Characters</div>
 								</Link>
 							</li>
 						</ul>

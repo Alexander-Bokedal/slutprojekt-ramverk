@@ -27,7 +27,7 @@ export default function SearchBar({ }) {
 				value={value}
 				onChange={e => setValue(e.target.value)}
 				onKeyDown={e => e.key === 'Enter' && handleSearch(value)}
-				placeholder="Search games..."
+				placeholder="Search..."
 				className="w-full bg-white rounded-md border px-3 py-2"
 			/>
 			<button

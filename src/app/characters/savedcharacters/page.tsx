@@ -5,6 +5,7 @@ import { AlwaysShowMediumImage } from "@/components/GameImage"
 import Image from "next/image"
 import UpdateCharacterModal from "@/components/UpdateCharacterModal"
 import { useState } from "react"
+import CharacterInfoBar from "@/components/CharacterInfoBar"
 
 const SavedCharacters = () => {
 	const { state, dispatch } = useCharacterContext();
@@ -15,6 +16,7 @@ const SavedCharacters = () => {
 	return (
 		<>
 
+			<CharacterInfoBar />
 			<main className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
 				{characters.map((character: IgdbCharacter) => (
 					<div

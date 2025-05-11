@@ -6,6 +6,7 @@ import Image from "next/image"
 import { useState } from "react"
 
 import UpdateGameModal from "@/components/UpdateGameModal"
+import GameInfoBar from "@/components/GameInfoBar"
 
 const SavedGames = () => {
 	const { state, dispatch } = useGameContext();
@@ -27,7 +28,9 @@ const SavedGames = () => {
 	return (
 		<>
 
+			<GameInfoBar />
 			<main className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+
 				{games.map((game: IgdbGame) => (
 					<div
 						key={game.id}
