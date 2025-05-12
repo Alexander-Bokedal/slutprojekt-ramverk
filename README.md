@@ -1,18 +1,22 @@
-Internet Game Database Seacher
-That seems like a fitting name for my project. This project is the final submission in the course "Frontend Frameworks" where the focus is to learn React and its ecosystem.
+# Internet Game Database Seacher
+
+That seems like a fitting name for my project. This project is the final submission in the course _"Frontend Frameworks"_ where the focus is to learn React and its ecosystem.
 
 The project uses the IGDB public API to fetch games or characters and lets you see detailed information about them. You can also save and edit information about the objects you fetch.
 
 Since it's a school project, the main focus for this README should be what I learned in this specific project.
 
-What I Learned
-Being fairly familiar with React already, I decided to focus mainly on learning Next.js. I also took this opportunity to learn how to use searchParams for storing the search query globally and sharing it throughout my app.
+## What I Learned
 
-I also focused on using custom hooks for fetching data that had useEffects with dependencies that listened to changes in the URL.
+Being fairly familiar with React already, I decided to focus mainly on learning Next.js. I also took this opportunity to learn how to use `searchParams` for storing the search query globally and sharing it throughout my app.
+
+I also focused on using custom hooks for fetching data that had `useEffects` with dependencies that listened to changes in the URL.
 
 And as always with TypeScript, you encounter issues you've never seen before and learn something new every day.
 
 Furthermore, making decisions when it comes to making my code DRY or just creating another file to keep it simple for me and any future reader of the codebase will probably be a struggle for the rest of time.
+
+---
 
 Next comes some bootstrap message from Next.js, enjoy!
 
