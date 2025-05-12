@@ -20,6 +20,7 @@ Furthermore, making decisions when it comes to making my code DRY or just creati
 
 Next comes some bootstrap message from Next.js, enjoy!
 
+---
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
