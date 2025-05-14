@@ -6,6 +6,7 @@ import Image from "next/image"
 import UpdateCharacterModal from "@/components/UpdateCharacterModal"
 import { useState } from "react"
 import CharacterInfoBar from "@/components/CharacterInfoBar"
+import Card from "@/components/Card"
 
 const SavedCharacters = () => {
 	const { state, dispatch } = useCharacterContext();
@@ -17,45 +18,53 @@ const SavedCharacters = () => {
 		<>
 
 			<CharacterInfoBar />
-			<main className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
-				{characters.map((character: IgdbCharacter) => (
-					<div
-						key={character.id}
-						className="transform transition-transform duration-300 hover:scale-105 cursor-pointer bg-white rounded-xl shadow-lg overflow-hidden"
-					>
-						{character.mug_shot?.image_id ? (
-							<AlwaysShowMediumImage id={character.mug_shot.image_id} />
-						) : character.games?.[0]?.cover?.image_id ? (
-							<AlwaysShowMediumImage id={character.games[0].cover.image_id} />
-						) : (
-							<div className="flex items-center justify-center min-w-[120px] min-h-[120px] border border-blue-400">
-								<Image
+			<main className="flex justify-center">
 
-									src='/fallback.png'
-									alt="Fallback image"
-									width={120}
-
-									height={120}
-									className=" flex items-center justify-center min-w-[90px] min-h-[128px] md:min-w-[264px] md:min-h-[374px] bg-gray-600"
-								/>
-							</div>
-						)}
-
-						<div className="p-4">
-							<h2 className="text-lg font-semibold">{character.name}</h2>
-						</div>
-
-
-						<p> Smash or pass? </p>
-						{character.choice ? character.choice : 'choose wisely'}
-						<button
-							onClick={() => setCharacter(character)}
-							className="mt-2 bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
+				<ul className="flex flex-col gap-4 items-center md:grid grid-cols-2 lg:grid-cols-3 ">
+					{characters.map((character: IgdbCharacter) => (
+						<li
+							key={character.id}
 						>
-							Edit
-						</button>
-					</div>
-				))}
+							<Card>
+								{character.mug_shot?.image_id ? (
+									<AlwaysShowMediumImage id={character.mug_shot.image_id} />
+								) : character.games?.[0]?.cover?.image_id ? (
+									<AlwaysShowMediumImage id={character.games[0].cover.image_id} />
+								) : (
+									<div className="flex items-center justify-center min-w-[120px] min-h-[120px] border border-blue-400">
+										<Image
+
+											src='/fallback.png'
+											alt="Fallback image"
+											width={120}
+
+											height={120}
+											className=" flex items-center justify-center min-w-[90px] min-h-[128px] md:min-w-[264px] md:min-h-[374px] bg-gray-600"
+										/>
+									</div>
+								)}
+
+								<div className="p-4">
+									<h2 className="text-lg font-semibold">{character.name}</h2>
+								</div>
+
+							</Card>
+
+							<div className="mt-2 bg-white border border-gray-300 rounded-xl shadow-md p-4 w-full max-w-md">
+								<p className="text-gray-800 text-lg font-semibold mb-2">Smash or pass?</p>
+								<p className="text-gray-600 text-base mb-4 italic">
+									{character.choice ? character.choice : 'Choose wisely'}
+								</p>
+								<button
+									onClick={() => setCharacter(character)}
+									className="bg-rose-500 hover:bg-rose-600 text-white font-medium px-6 py-2 rounded-xl shadow-md hover:shadow-lg transition-transform duration-200 ease-in-out transform hover:scale-105"
+								>
+									Edit
+								</button>
+							</div>
+						</li>
+					))}
+				</ul>
 			</main>
 			{character && (
 				<UpdateCharacterModal

@@ -26,14 +26,14 @@ export const MediumImage = ({ id }: { id: string }) => {
 			alt="Cover photo for game"
 			width={264}
 			height={374}
-			className=" max-h-[374px] min-h-[374px] hidden md:block"
+			className=" max-h-[374px] min-h-[374px] "
 			unoptimized
 		/>
 	)
 }
 
 export const AlwaysShowMediumImage = ({ id }: { id: string }) => {
-	const src = `https://images.igdb.com/igdb/image/upload/t_cover_big/${id}.jpg`;
+	const src = `https://images.igdb.com/igdb/image/upload/t_720p/${id}.jpg`;
 	return (
 		<Image
 			src={src}
@@ -47,29 +47,29 @@ export const AlwaysShowMediumImage = ({ id }: { id: string }) => {
 }
 
 
-export const AlwaysShowScreenShot = ({ url }: { url: string }) => {
-	const src = `https:${url}`
+export const AlwaysShowScreenShot = ({ id }: { id: string }) => {
+	const src = `https://images.igdb.com/igdb/image/upload/t_720p/${id}.jpg`;
 	return (
 		<Image
 			src={src}
 			alt="Cover photo for game"
-			width={105}
-			height={120}
-			className=" max-h-[374px] border rounded-lg "
+			width={264}
+			height={264}
+			className="  border rounded-lg  "
 			unoptimized
 		/>
 	)
 }
 
 
-export const SmallCharacterImage = ({ url }: { url: string }) => {
-	const src = `https:${url}`
+export const SmallCharacterImage = ({ id }: { id: string }) => {
+	const src = `https://images.igdb.com/igdb/image/upload/t_720p/${id}.jpg`
 	return (
 		<Image
 			src={src}
 			alt="Mug shot"
-			width={120}
-			height={120}
+			width={264}
+			height={374}
 
 		/>
 	)

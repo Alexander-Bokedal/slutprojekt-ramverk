@@ -1,6 +1,5 @@
 
 "use client";
-import chocobo from '../../public/logo.png'
 
 import { useState } from "react";
 import Link from "next/link";
@@ -21,36 +20,34 @@ export default function Header() {
 					/>
 				</Link>
 				<div className='flex justify-evenly grow'>
-					<ul className="hidden md:flex space-x-6">
+					<ul className="hidden lg:flex justify-evenly space-x-4 items-center w-1/2">
 						<li>
 							<Link href="/">
-								<div className="hover:text-blue-600 text-black">Home </div>
-
+								<div className="hover:text-blue-600 text-black text-xl font-bold font-serif">Home</div>
 							</Link>
 						</li>
-						<li> | </li>
+						<li><p className='text-xl font-bold'>|</p></li>
 						<li>
 							<Link href="/games/savedgames">
-								<div className="hover:text-blue-600 text-black">Saved Games</div>
+								<div className="hover:text-blue-600 text-black text-xl font-bold font-serif">Saved Games</div>
 							</Link>
 						</li>
-
-						<li> | </li>
+						<li><p className='text-xl font-bold'> |</p></li>
 						<li>
 							<Link href="/characters/savedcharacters">
-								<div className="hover:text-blue-600 text-black">Saved Characters</div>
+								<div className="hover:text-blue-600 text-black font-bold text-xl font-serif">Saved Characters</div>
 							</Link>
 						</li>
 					</ul>
 
 				</div>
 				<button
-					className="md:hidden focus:outline-none"
+					className="lg:hidden focus:outline-none"
 					aria-label="Toggle menu"
 					onClick={() => setMenuOpen((o) => !o)}
 				>
 					{menuOpen ? (
-						<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<svg className="w-6  h-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
 						</svg>
 					) : (
@@ -76,7 +73,7 @@ export default function Header() {
 								</Link>
 							</li>
 
-							<li> | </li>
+							<li>  </li>
 							<li>
 								<Link href="/characters/savedcharacters">
 									<div className="hover:text-blue-600 text-black">Saved Characters</div>

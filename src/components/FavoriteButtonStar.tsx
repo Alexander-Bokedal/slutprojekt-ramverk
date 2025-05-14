@@ -26,6 +26,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
 
 	return (
 		<button
+			className='mr-2'
 			onClick={handleClick}
 			aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
 			style={{

@@ -4,9 +4,10 @@ import { useGameContext } from "@/context/favoriteGamesContext"
 import { AlwaysShowMediumImage } from "@/components/GameImage"
 import Image from "next/image"
 import { useState } from "react"
-
+import { SetStarRating } from "@/components/SetStarRating"
 import UpdateGameModal from "@/components/UpdateGameModal"
 import GameInfoBar from "@/components/GameInfoBar"
+import Card from "@/components/Card"
 
 const SavedGames = () => {
 	const { state, dispatch } = useGameContext();
@@ -28,45 +29,46 @@ const SavedGames = () => {
 	return (
 		<>
 
+
 			<GameInfoBar />
-			<main className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+			<main className="flex justify-center">
 
-				{games.map((game: IgdbGame) => (
-					<div
-						key={game.id}
-						className="transform transition-transform duration-300 hover:scale-105 cursor-pointer bg-white rounded-xl shadow-lg overflow-hidden"
-					>
-						{game.cover?.image_id ? (
-							<AlwaysShowMediumImage id={game.cover.image_id} />
-						) : game.screenshots?.[0]?.image_id ? (
-							<AlwaysShowMediumImage id={game.screenshots[0].image_id} />
-						) : (
-							<div className="flex items-center justify-center min-w-[120px] min-h-[120px] border border-blue-400">
-								<Image
-
-									src='/fallback.png'
-									alt="Fallback image"
-									width={120}
-
-									height={120}
-									className=" flex items-center justify-center min-w-[90px] min-h-[128px] md:min-w-[264px] md:min-h-[374px] bg-gray-600"
-								/>
-							</div>
-						)}
-
-						<div className="p-4">
-							<h2 className="text-lg font-semibold">{game.name}</h2>
-						</div>
-						<p> Hours played:  {game?.info?.hours ? game.info?.hours : 0} </p>
-						<p> Rating: {game?.info?.rating ? game.info.rating : 0} </p>
-						<button
-							onClick={() => setEditingGame(game)}
-							className="mt-2 bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
+				<ul className="flex flex-col gap-20 items-center md:grid grid-cols-2 lg:grid-cols-3 ">
+					{games.map((game: IgdbGame) => (
+						<li
+							key={game.id}
 						>
-							Edit
-						</button>
-					</div>
-				))}
+							<Card>
+								{game.cover?.image_id ? (
+									<AlwaysShowMediumImage id={game.cover.image_id} />
+								) : game.screenshots?.[0]?.image_id ? (
+									<AlwaysShowMediumImage id={game.screenshots[0].image_id} />
+								) : (
+									<div className="flex items-center justify-center min-w-[120px] min-h-[120px] border border-blue-400">
+										<Image
+
+											src='/fallback.png'
+											alt="Fallback image"
+											width={120}
+
+											height={120}
+											className=" flex items-center justify-center min-w-[90px] min-h-[128px] md:min-w-[264px] md:min-h-[374px] bg-gray-600"
+										/>
+									</div>
+								)}
+
+								<div className="p-4">
+									<h2 className="text-center ml-4 truncate font-bold max-w-[200px] grow">{game.name}</h2>
+								</div>
+							</Card>
+							<div className="bg-white border border-gray-300 rounded-xl shadow-md p-4 w-full max-w-md">
+								<div className=" mb-4">
+									<span className="font-semibold"><SetStarRating id={game.id} /> </span>
+								</div>
+							</div>
+						</li>
+					))}
+				</ul>
 			</main>
 			{editingGame && (
 				<UpdateGameModal

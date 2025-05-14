@@ -1,6 +1,6 @@
 'use client'
 import { useFetchHook } from "@/hooks/useFetchHook"
-import { SmallImage, MediumImage } from "./GameImage";
+import { MediumImage } from "./GameImage";
 
 import { useState, useEffect } from 'react'
 import { IgdbGame } from "@/types/types";
@@ -57,7 +57,7 @@ const ShowGameResult = () => {
 	const games = data as IgdbGame[];
 	return (
 		<>
-			<ul className="m-1 min-w-[300px] flex flex-wrap justify-between w-full">
+			<ul className="m-1 min-w-[300px] flex flex-wrap justify-center gap-2 md:grid grid-cols-2 lg:grid-cols-3 w-full">
 				{games?.map((game) => {
 					const isFavorited = state.some((g) => g.id === game.id);
 
@@ -68,12 +68,10 @@ const ShowGameResult = () => {
 								<Link href={`/games/${game.id}`}>
 									{game.cover?.image_id ? (
 										<>
-											<SmallImage id={game.cover.image_id} />
 											<MediumImage id={game.cover.image_id} />
 										</>
 									) : game.screenshots?.[0] ? (
 										<>
-											<SmallImage id={game.screenshots[0].image_id} />
 											<MediumImage id={game.screenshots[0].image_id} />
 										</>
 									) : (
@@ -85,7 +83,7 @@ const ShowGameResult = () => {
 												width={90}
 
 												height={90}
-												className=" flex items-center justify-center min-w-[90px] min-h-[128px] md:min-w-[264px] md:min-h-[374px] bg-gray-600 "
+												className=" flex items-center justify-center  min-w-[264px] min-h-[374px] bg-gray-600 "
 											/>
 										</div>
 									)}
@@ -100,18 +98,19 @@ const ShowGameResult = () => {
 									onCancelAction={closeModal}
 									object={game}
 								/>
+
+								<div className="flex w-full  items-center justify-between h-15 justify-self-center" >
+									<span className="text-center ml-4 truncate font-bold max-w-[200px] grow">{game.name}</span>
+
+									<FavoriteButton
+										onAdd={() => handleAdd(game)}
+										onRemove={() => onRemoveClick(game)}
+										isFavorited={isFavorited}
+										object={game}
+									/>
+								</div>
 							</Card>
 
-							<div className="flex w-full  items-center justify-center h-15 justify-self-center" >
-								<span className="text-center  font-bold max-w-[200px]">{game.name}</span>
-
-								<FavoriteButton
-									onAdd={() => handleAdd(game)}
-									onRemove={() => onRemoveClick(game)}
-									isFavorited={isFavorited}
-									object={game}
-								/>
-							</div>
 						</li>
 					);
 				})}

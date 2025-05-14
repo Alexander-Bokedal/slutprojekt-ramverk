@@ -4,7 +4,7 @@ import { AlwaysShowMediumImage, AlwaysShowScreenShot } from "@/components/GameIm
 import { IgdbGame } from "@/types/types";
 import React from 'react';
 import Spinner from "@/components/Spinner";
-
+import TextBox from "@/components/TextBox";
 
 interface GameDetailsProps {
 	game: IgdbGame;
@@ -29,10 +29,10 @@ const GameDetails: React.FC<GameDetailsProps> = () => {
 
 	return (
 
-		<div className="max-w-screen-sm mx-auto p-4">
-			<h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">{name}</h1>
-			<div className="grid grid-cols-1 md:grid-cols-2">
-				<div className="w-full mb-6 flex justify-center md:justify-start">
+		<div className="max-w-screen-sm mx-auto flex flex-col gap-4 p-4">
+			<TextBox>
+				<h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">{name}</h1>
+				<div className="w-full mb-6 flex justify-center ">
 					{cover && cover.image_id ? (
 						<AlwaysShowMediumImage id={cover.image_id} />
 					) : (
@@ -41,37 +41,55 @@ const GameDetails: React.FC<GameDetailsProps> = () => {
 						</div>
 					)}
 				</div>
+			</TextBox>
 
+			<TextBox>
+				<h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">Screenshots</h1>
 				{screenshots?.length > 0 ? (
-					<div className="flex flex-wrap shrink   justify-evenly">
-						{screenshots.slice(0, 6).map((shot: { url: string }, idx: number) => (
-							<div key={idx} className="">
-								<AlwaysShowScreenShot url={shot.url} />
-							</div>
-						))}
+
+					<div className="-mx-4">
+						<div className="flex flex-row gap-8 overflow-x-auto whitespace-nowrap px-4 scroll-smooth scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent">
+							{screenshots.slice(0, 6).map((shot: { image_id: string }, idx: number) => (
+								<div key={idx} className="shrink-0 min-w-[200px]">
+									<AlwaysShowScreenShot id={shot.image_id} />
+								</div>
+							))}
+						</div>
 					</div>
+
 				) : (
 					<div className="mb-6 w-full h-48 flex items-center justify-center bg-gray-100 rounded-lg">
 						<span className="text-gray-500">No screenshots available</span>
 					</div>
-				)}
-			</div>
-			{/* Storyline */}
-			{storyline ? (
-				<div className="mb-6">
-					<h2 className="text-xl font-semibold mb-2">Storyline</h2>
-					<p className="text-base leading-relaxed">{storyline}</p>
-				</div>
-			) : null}
 
-			{/* Summary */}
-			{summary ? (
-				<div className="mb-6">
-					<h2 className="text-xl font-semibold mb-2">Summary</h2>
-					<p className="text-base leading-relaxed">{summary}</p>
-				</div>
-			) : null}
-		</div>
+				)
+
+				}
+
+			</TextBox>
+			<TextBox>
+				{
+
+					storyline ? (
+						<div className="mb-6">
+							<h2 className="text-xl font-semibold mb-2">Storyline</h2>
+							<p className="text-base leading-relaxed">{storyline}</p>
+						</div>
+					) : null
+				}
+
+			</TextBox>
+			<TextBox>
+				{
+					summary ? (
+						<div className="mb-6">
+							<h2 className="text-xl font-semibold mb-2">Summary</h2>
+							<p className="text-base leading-relaxed">{summary}</p>
+						</div>
+					) : null
+				}
+			</TextBox>
+		</div >
 	);
 };
 

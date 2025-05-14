@@ -26,7 +26,7 @@ const GameInfoBar = () => {
 	}
 
 	return (
-		<div className="w-full flex items-center justify-evenly px-4 py-2 bg-gray-100 border-t border-gray-300">
+		<div className="w-full flex flex-col gap-5 md:grid grid-cols-2 md:w-1/2 justify-self-center m-2 rounded-2xl justify-items-center items-center justify-evenly px-4 py-2 bg-gray-100 border-t border-gray-300">
 			<p> Amount of games: {games.length} </p>
 			<p> Total hours played: {getTotalHoursPlayed(games)} </p>
 			<p> Average hours played: {Math.floor(averageHoursPlayed(games))} </p>
